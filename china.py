@@ -6,7 +6,7 @@ import datetime
 import time
 import random
 import threading
-def findCity(url):
+def findCity(url):#获取市级或区级信息
     Target = url;
     Target0 = "http://www.xzqy.net/"
     headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36'}
@@ -17,20 +17,20 @@ def findCity(url):
     city = str(soup.find_all('td', class_="parent")).split('<a')
     pattern = re.compile('"./(.*htm)"')
     pattern1 = re.compile('>(.*)</a>')
-    del city[0]
+    del city[0]#去除无用信息
 
 
     cityUrl = [];
     cityName = [];
     for i in range(len(city)):
         cityU = Target0 + pattern.findall(city[i])[0]
-        name = pattern1.findall(city[i])[0]  # 省名
+        name = pattern1.findall(city[i])[0]  # 市或区名
         cityUrl.append(cityU)
         cityName.append(name)
     return [cityUrl, cityName]
 
 
-def getMessage(url):
+def getMessage(url):#获取街道信息
     Target = url
 
     headers = {
@@ -40,7 +40,7 @@ def getMessage(url):
     text = rep.text;
     soup = BeautifulSoup(text, "html5lib")
     city = str(soup.find_all('td', class_="parent")).split('<a')
-    pattern = re.compile('"./(.*htm)"')
+
     pattern1 = re.compile('>(.*)</a>')
     del city[0]
 
@@ -49,7 +49,7 @@ def getMessage(url):
         target2 = pattern1.findall(city[i])[0]  # 省名
         message.append(target2)
     return message
-def getip():
+def getip():#随机获取可用ip
     f = open("G://ip.txt", 'r')
     lines = f.readlines()
     proxys = []
@@ -62,7 +62,7 @@ def getip():
     f.close()
     return pro
 
-def province(url,Pname):
+def province(url,Pname):#以省为单位保存数据
 
     city = [];
     name = [];
@@ -100,7 +100,7 @@ rep = requests.get(url=Target, headers=headers, proxies=ip)
 
 text=rep.text;
 soup=BeautifulSoup(text, "html5lib")
-province0=str(soup.find_all('div',class_="navi")).split('</a>')
+province0=str(soup.find_all('div',class_="navi")).split('</a>')#得到各省名及网址
 pattern = re.compile('./(.*)"')
 pattern1=re.compile('>(.*)')
 del province0[0]
@@ -110,5 +110,5 @@ for i in range(0,len(province0)):
     target1=Target+pattern.findall(province0[i])[0]
     target2=pattern1.findall(province0[i])[0]#省名
     province(target1,target2)
-    print(type(target2));
+
 
