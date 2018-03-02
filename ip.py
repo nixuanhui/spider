@@ -13,14 +13,6 @@ def get_ip_list(url, headers):
         ip_list.append(tds[1].text + ':' + tds[2].text)
     return ip_list
 
-def get_random_ip(ip_list):
-    proxy_list = []
-    for ip in ip_list:
-        proxy_list.append('http://' + ip)
-    proxy_ip = random.choice(proxy_list)
-    proxies = {'http': proxy_ip}
-    return proxies
-
 if __name__ == '__main__':
     url = 'http://www.xicidaili.com/nn/'
     headers = {
@@ -29,9 +21,19 @@ if __name__ == '__main__':
     ip_list = get_ip_list(url, headers=headers)
     #proxies = get_random_ip(ip_list)
     file=open('G://ip.txt','w+')
+    urlTest="https://www.baidu.com"
     for i in range(len(ip_list)):
-      str=ip_list[i]+"\n"
-      file.write(str);
+      ip= 'http:\\' + ip_list[i];
+      proxies = {'proxy': ip}
+      try:                                  #检测ip是否可用
+          ss = requests.get(urlTest, proxies=proxies)
+          if str(ss) == '<Response [200]>':
+              str1 = ip_list[i] + "\n"
+              file.write(str1);
+
+      except Exception as e:
+          print (e)
+
       
     file.close()
     print(ip_list)

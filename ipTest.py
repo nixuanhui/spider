@@ -1,7 +1,7 @@
 #encoding=utf8
 import requests
 
-f = open("G://ip.txt",'r')
+f = open("G:\\iGit\\ip.txt",'r')
 lines = f.readlines()
 proxys = []
 for i in range(0,len(lines)):
@@ -15,6 +15,8 @@ url = 'https://www.baidu.com'
 for pro in proxys:
     try :
         s = requests.get(url,proxies = pro)
-        print (s)
+        if str(s)=='<Response [200]>':
+            print("OK")
+
     except Exception as e:
         print (e)
