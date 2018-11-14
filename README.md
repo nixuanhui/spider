@@ -7,4 +7,6 @@
   + 核心接口：http://top.baidu.com/region/singlelist
   + 获取方式：post请求
 
+- **搜狗词库爬虫**
+  - 具体注意事项见代码头部
 
