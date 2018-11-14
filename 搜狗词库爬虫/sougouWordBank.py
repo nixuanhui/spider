@@ -84,7 +84,7 @@ def get_data(url,i):
 
 #爬虫主程序
 def spider_run(i):
-    url = 'https://pinyin.sogou.com/dict/cate/index/403/default/' #娱乐类词库链接
+    url = 'https://pinyin.sogou.com/dict/cate/index/403/default/' #娱乐类词库链接，可修改
     print('========================开始爬取第' + str(i) + '页内容========================')
     url = url + str(i)
     data_urls = get_data_url(url)
