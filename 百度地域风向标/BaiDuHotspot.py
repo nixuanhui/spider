@@ -9,7 +9,7 @@ import requests
 import re
 import pymysql.cursors
 import time
-
+import redis
 def spider(url,data):
     content=[]
     flag=0
